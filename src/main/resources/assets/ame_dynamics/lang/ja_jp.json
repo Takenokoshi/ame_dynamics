@@ -1,0 +1,16 @@
+{
+    "description.ame_dynamics.machine":"Mekanismのスタイルに合わせたIDs機械",
+    "tab.ame_dynamics.tab_name":"Astral Mekanism & Energistics:Dynamics",
+    "block.ame_dynamics.essential_drying_basin":"Essential Drying Basin",
+    "block.ame_dynamics.enchanted_drying_basin":"Enchanted Drying Basin",
+    "block.ame_dynamics.astral_drying_basin":"Astral Drying Basin",
+    "block.ame_dynamics.essential_squeezer":"Essential Squeezer",
+    "block.ame_dynamics.enchanted_squeezer":"Enchanted Squeezer",
+    "block.ame_dynamics.astral_squeezer":"Astral Squeezer",
+    "container.ame_dynamics.essential_drying_basin":"Essential Drying Basin",
+    "container.ame_dynamics.enchanted_drying_basin":"Enchanted Drying Basin",
+    "container.ame_dynamics.astral_drying_basin":"Astral Drying Basin",
+    "container.ame_dynamics.essential_squeezer":"Essential Squeezer",
+    "container.ame_dynamics.enchanted_squeezer":"Enchanted Squeezer",
+    "container.ame_dynamics.astral_squeezer":"Astral Squeezer"
+}

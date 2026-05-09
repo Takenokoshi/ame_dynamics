@@ -1,7 +1,7 @@
 package ame_dynamics;
 
-import ame_dynamics.blockentity.machine.BEEssentialSqueezer;
-import ame_dynamics.gui.GuiAMEDSqueezer;
+import ame_dynamics.blockentity.machine.*;
+import ame_dynamics.gui.*;
 import ame_dynamics.registries.AMEDMachines;
 import astral_mekanism.registration.MachineRegistryObject;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
@@ -36,6 +36,11 @@ public class AMEDClient extends AMEDynamics {
 
     private static void initScreens() {
         registerScreenMek(AMEDMachines.ESSENTIAL_SQUEEZER, GuiAMEDSqueezer<BEEssentialSqueezer>::new);
+        registerScreenMek(AMEDMachines.ENCHANTED_SQUEEZER, GuiAMEDSqueezer<BEEnchantedSqueezer>::new);
+        registerScreenMek(AMEDMachines.ASTRAL_SQUEEZER, GuiAMEDSqueezer<BEAstralSqueezer>::new);
+        registerScreenMek(AMEDMachines.ESSENTIAL_DRYING_BASIN, GuiAMEDDryingBasin<BEEssentialDryingBasin>::new);
+        registerScreenMek(AMEDMachines.ENCHANTED_DRYING_BASIN, GuiAMEDDryingBasin<BEEnchantedDryingBasin>::new);
+        registerScreenMek(AMEDMachines.ASTRAL_DRYING_BASIN, GuiAMEDDryingBasin<BEAstralDryingBasin>::new);
     }
 
     private static <BE extends TileEntityMekanism, CONTAINER extends MekanismTileContainer<BE>, U extends Screen & MenuAccess<CONTAINER>> void registerScreenMek(

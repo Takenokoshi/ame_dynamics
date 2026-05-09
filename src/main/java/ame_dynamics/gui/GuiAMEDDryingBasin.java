@@ -2,11 +2,11 @@ package ame_dynamics.gui;
 
 import java.util.List;
 
-import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalSqueezer;
-import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicalsqueezer.MechanicalSqueezerRecipeCategory;
+import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalDryingBasin;
+import org.cyclops.integrateddynamicscompat.modcompat.jei.mechanicaldryingbasin.MechanicalDryingBasinRecipeCategory;
 import org.jetbrains.annotations.NotNull;
 
-import ame_dynamics.blockentity.interfaces.IAMEDSqueezer;
+import ame_dynamics.blockentity.interfaces.IAMEDDryingBasin;
 import ame_dynamics.jei.AMEDJEIPlugin;
 import astral_mekanism.block.blockentity.base.BlockEntityRecipeMachine;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
@@ -26,10 +26,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class GuiAMEDSqueezer<BE extends BlockEntityRecipeMachine<RecipeMechanicalSqueezer> & IAMEDSqueezer>
+public class GuiAMEDDryingBasin<BE extends BlockEntityRecipeMachine<RecipeMechanicalDryingBasin> & IAMEDDryingBasin>
         extends GuiConfigurableTile<BE, MekanismTileContainer<BE>> {
 
-    public GuiAMEDSqueezer(MekanismTileContainer<BE> container, Inventory inv, Component title) {
+    public GuiAMEDDryingBasin(MekanismTileContainer<BE> container, Inventory inv, Component title) {
         super(container, inv, title);
         dynamicSlots = true;
     }
@@ -41,14 +41,16 @@ public class GuiAMEDSqueezer<BE extends BlockEntityRecipeMachine<RecipeMechanica
         addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), 164, 15))
                 .warning(WarningType.NOT_ENOUGH_ENERGY, tile.getWarningCheck(RecipeError.NOT_ENOUGH_ENERGY));
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::getActive));
-        addRenderableWidget(new GuiFluidGauge(tile::getFluidTank, () -> tile.getFluidTanks(null), GaugeType.STANDARD,
+        addRenderableWidget(new GuiFluidGauge(tile::getInputTank, () -> tile.getFluidTanks(null), GaugeType.STANDARD,
+                this, 44, 13));
+        addRenderableWidget(new GuiFluidGauge(tile::getOutputTank, () -> tile.getFluidTanks(null), GaugeType.STANDARD,
                 this, 137, 13));
         addRenderableWidget(new GuiProgress(tile::getScaledProgress, ProgressType.BAR, this, 82, 38))
                 .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT,
                         tile.getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT));
         addRenderableWidget(new MekanismImageButton(this, 90, 53, 18,
                 ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/knowledge_book.png"),
-                () -> AMEDJEIPlugin.getRecipesGui().showTypes(List.of(MechanicalSqueezerRecipeCategory.TYPE))));
+                () -> AMEDJEIPlugin.getRecipesGui().showTypes(List.of(MechanicalDryingBasinRecipeCategory.TYPE))));
     }
 
     @Override

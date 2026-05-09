@@ -21,5 +21,6 @@ public class AMEDLang implements ILangEntry {
     }
 
     public static final AMEDLang MACHINE_DESCRIPTION = new AMEDLang("description", "machine");
+    public static final AMEDLang CREATIVE_TAB = new AMEDLang("tab", "tab_name");
 
 }

@@ -1,6 +1,5 @@
 package ame_dynamics.recipe.cached;
 
-import java.util.Random;
 import java.util.function.BooleanSupplier;
 
 import org.cyclops.integrateddynamics.core.recipe.type.RecipeMechanicalSqueezer;
@@ -17,8 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class MechanicalSqueezerCachedRecipe extends GeneralCachedRecipe<RecipeMechanicalSqueezer> {
-
-    private static final Random rng = new Random();
 
     private final IInputHandler<ItemStack> inputHandler;
     private final IngrediencChanceOutputHandler firstOutputHandler;
@@ -52,9 +49,9 @@ public class MechanicalSqueezerCachedRecipe extends GeneralCachedRecipe<RecipeMe
         }
         recipeInput = inputHandler.getRecipeInput(IngredientCreatorAccess.item().from(recipe.getInputIngredient()));
         NonNullList<IngredientChance> chances = recipe.getOutputItems();
-        firstOutput = chances.size() < 0 ? null : chances.get(0);
-        secondOutput = chances.size() < 1 ? null : chances.get(1);
-        thirdOutput = chances.size() < 2 ? null : chances.get(2);
+        firstOutput = chances.size() < 1 ? null : chances.get(0);
+        secondOutput = chances.size() < 2 ? null : chances.get(1);
+        thirdOutput = chances.size() < 3 ? null : chances.get(2);
         fluidOutput = recipe.getOutputFluid();
         inputHandler.calculateOperationsCanSupport(tracker, recipeInput);
         firstOutputHandler.calculateOperationsCanSupport(tracker, firstOutput);
@@ -67,8 +64,8 @@ public class MechanicalSqueezerCachedRecipe extends GeneralCachedRecipe<RecipeMe
     protected void finishProcessing(int processes) {
         inputHandler.use(recipeInput, processes);
         firstOutputHandler.handleOutput(firstOutput, processes);
-        secondOutputHandler.handleOutput(firstOutput, processes);
-        thirdOutputHandler.handleOutput(firstOutput, processes);
+        secondOutputHandler.handleOutput(secondOutput, processes);
+        thirdOutputHandler.handleOutput(thirdOutput, processes);
         fluidOutputHandler.handleOutput(fluidOutput, processes);
     }
 

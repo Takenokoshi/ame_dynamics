@@ -10,12 +10,15 @@ public class AMEDStorageConfig extends BaseMekanismConfig {
 
     private final ForgeConfigSpec configSpec;
     public final CachedFloatingLongValue essentialSqueezer;
+    public final CachedFloatingLongValue essentialDryingBasin;
 
     AMEDStorageConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         builder.comment("Machine Energy Usage Config. This config is synced from server to client.").push("usage");
         essentialSqueezer = CachedFloatingLongValue.define(this, builder, "Base energy storage (Joules).",
                 "essentialSqueezer", FloatingLong.createConst(250000));
+        essentialDryingBasin = CachedFloatingLongValue.define(this, builder, "Base energy storage (Joules).",
+                "essentialDryingBasin", FloatingLong.createConst(250000));
         builder.pop();
         configSpec = builder.build();
     }
