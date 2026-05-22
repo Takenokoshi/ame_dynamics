@@ -83,7 +83,7 @@ public class BEEnchantedSqueezer extends BlockEntityRecipeMachine<RecipeMechanic
         this.thirdOutputHandler = new IngrediencChanceOutputHandler(thirdOutputSlot,
                 RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
         this.outputHandler = OutputHelper.getOutputHandler(fluidTank, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
-        baselineMaxOperations = 200;
+        baselineMaxOperations = 1;
     }
 
     @NotNull
@@ -144,7 +144,7 @@ public class BEEnchantedSqueezer extends BlockEntityRecipeMachine<RecipeMechanic
     public void recalculateUpgrades(Upgrade upgrade) {
         super.recalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED || AMEEmpowered.isEmpoweredSpeed(upgrade) || upgrade == ExtraUpgrade.STACK) {
-            baselineMaxOperations = 200
+            baselineMaxOperations = 1
                     * ((1 << upgradeComponent.getUpgrades(Upgrade.SPEED)) + 2 << AMEEmpowered.getEmpoweredSpeeds(this))
                     * (1 << upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
         }

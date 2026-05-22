@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import ame_dynamics.blockentity.interfaces.IAMEDDryingBasin;
 import ame_dynamics.recipe.cached.MechanicalDryingBasinCachedRecipe;
 import astral_mekanism.block.blockentity.base.BlockEntityRecipeMachine;
+import astral_mekanism.block.blockentity.elements.ExtendedComponentEjector;
 import astral_mekanism.generalrecipe.cachedrecipe.ICachedRecipe;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
@@ -32,7 +33,6 @@ import mekanism.common.inventory.slot.InputInventorySlot;
 import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.tile.component.TileComponentConfig;
-import mekanism.common.tile.component.TileComponentEjector;
 import mekanism.common.util.MekanismUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -63,8 +63,9 @@ public abstract class BETickWorkDryingBasin extends BlockEntityRecipeMachine<Rec
         configComponent.setupItemIOConfig(inputSlot, outputSlot, energySlot);
         configComponent.setupIOConfig(TransmissionType.FLUID, inputTank, outputTank, RelativeSide.RIGHT, false);
         configComponent.setupInputConfig(TransmissionType.ENERGY, energyContainer);
-        ejectorComponent = new TileComponentEjector(this, () -> 0, () -> 0x7fffffff).setOutputData(configComponent,
-                TransmissionType.ITEM, TransmissionType.FLUID);
+        ejectorComponent = new ExtendedComponentEjector(this, () -> 0x7fffffff)
+                .setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.FLUID)
+                .setCanFluidTankEject((tank, type) -> tank == outputTank && type.canOutput());
         this.itemInputHandler = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
         this.fluidInputHandler = InputHelper.getInputHandler(inputTank, RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
         this.itemOutputHandler = OutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);

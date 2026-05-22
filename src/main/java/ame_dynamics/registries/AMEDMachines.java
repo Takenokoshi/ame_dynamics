@@ -19,8 +19,26 @@ import astral_mekanism.registration.MachineRegistryObject;
 import mekanism.api.Upgrade;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AMEDMachines {
+
+    public static final VoxelShape SHAPE = Shapes.or(
+            Block.box(0, 0, 0, 16, 2, 16),
+
+            Block.box(0, 2, 0, 2, 16, 2),
+            Block.box(14, 2, 0, 16, 16, 2),
+            Block.box(0, 2, 14, 2, 16, 16),
+            Block.box(14, 2, 14, 16, 16, 16),
+
+            Block.box(2, 10, 0, 14, 16, 2),
+            Block.box(2, 10, 14, 14, 16, 16),
+            Block.box(0, 10, 2, 2, 16, 14),
+            Block.box(14, 10, 2, 16, 16, 14));
+
+    public static final VoxelShape[] SHAPES = new VoxelShape[] { SHAPE, SHAPE, SHAPE, SHAPE };
     public static final MachineDeferredRegister MACHINES = new MachineDeferredRegister(AMEDConstants.MODID);
     public static final MachineRegistryObject<BEEssentialSqueezer, ?, MekanismTileContainer<BEEssentialSqueezer>, ?> ESSENTIAL_SQUEEZER = MACHINES
             .registerSimple("essential_squeezer",
@@ -38,8 +56,8 @@ public class AMEDMachines {
                     BEEnchantedSqueezer.class,
                     AMEDLang.MACHINE_DESCRIPTION,
                     builder -> builder
-                            .withEnergyConfig(AMEDConfig.usage.essentialSqueezer,
-                                    () -> AMEDConfig.storage.essentialSqueezer.get().multiply(400))
+                            .withEnergyConfig(() -> AMEDConfig.usage.essentialSqueezer.get().multiply(200),
+                                    () -> AMEDConfig.storage.essentialSqueezer.get().multiply(12800))
                             .changeAttributeUpgrade(
                                     EnumSet.of(Upgrade.ENERGY, Upgrade.SPEED, AMEUpgrade.COBBLESTONE_SUPPLY.getValue(),
                                             ExtraUpgrade.STACK)));
@@ -49,7 +67,7 @@ public class AMEDMachines {
                     BEAstralSqueezer.class,
                     AMEDLang.MACHINE_DESCRIPTION,
                     builder -> builder
-                            .withEnergyConfig(AMEDConfig.usage.essentialSqueezer, () -> FloatingLong.MAX_VALUE)
+                            .withEnergyConfig(() -> AMEDConfig.usage.essentialSqueezer.get().multiply(200))
                             .changeAttributeUpgrade(
                                     EnumSet.of(Upgrade.ENERGY, AMEUpgrade.COBBLESTONE_SUPPLY.getValue())));
     public static final MachineRegistryObject<BEEssentialDryingBasin, ?, MekanismTileContainer<BEEssentialDryingBasin>, ?> ESSENTIAL_DRYING_BASIN = MACHINES
@@ -58,6 +76,7 @@ public class AMEDMachines {
                     BEEssentialDryingBasin.class,
                     AMEDLang.MACHINE_DESCRIPTION,
                     builder -> builder
+                            .withCustomShape(SHAPES)
                             .withEnergyConfig(AMEDConfig.usage.essentialDryingBasin,
                                     AMEDConfig.storage.essentialDryingBasin)
                             .changeAttributeUpgrade(
@@ -70,7 +89,8 @@ public class AMEDMachines {
                     BEEnchantedDryingBasin.class,
                     AMEDLang.MACHINE_DESCRIPTION,
                     builder -> builder
-                            .withEnergyConfig(AMEDConfig.usage.essentialDryingBasin,
+                            .withCustomShape(SHAPES)
+                            .withEnergyConfig(() -> AMEDConfig.usage.essentialDryingBasin.get().multiply(200),
                                     () -> AMEDConfig.storage.essentialDryingBasin.get().multiply(400))
                             .changeAttributeUpgrade(
                                     EnumSet.of(Upgrade.ENERGY, Upgrade.SPEED, AMEUpgrade.COBBLESTONE_SUPPLY.getValue(),
@@ -82,7 +102,9 @@ public class AMEDMachines {
                     BEAstralDryingBasin.class,
                     AMEDLang.MACHINE_DESCRIPTION,
                     builder -> builder
-                            .withEnergyConfig(AMEDConfig.usage.essentialDryingBasin, () -> FloatingLong.MAX_VALUE)
+                            .withCustomShape(SHAPES)
+                            .withEnergyConfig(() -> AMEDConfig.usage.essentialDryingBasin.get().multiply(200),
+                                    () -> FloatingLong.MAX_VALUE)
                             .changeAttributeUpgrade(
                                     EnumSet.of(Upgrade.ENERGY,
                                             AMEUpgrade.WATER_SUPPLY.getValue(),

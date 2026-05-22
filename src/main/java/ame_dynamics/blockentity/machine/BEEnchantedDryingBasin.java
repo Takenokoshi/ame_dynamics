@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 
 public class BEEnchantedDryingBasin extends BETickWorkDryingBasin {
-    private int baselineMaxOperations = 200;
-    private int inputTankCapacity = 200 * 5000;
+    private int baselineMaxOperations = 1;
+    private int inputTankCapacity = 1 * 5000;
 
     public BEEnchantedDryingBasin(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
@@ -38,7 +38,7 @@ public class BEEnchantedDryingBasin extends BETickWorkDryingBasin {
     public void recalculateUpgrades(Upgrade upgrade) {
         super.recalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED || AMEEmpowered.isEmpoweredSpeed(upgrade) || upgrade == ExtraUpgrade.STACK) {
-            baselineMaxOperations = 200
+            baselineMaxOperations = 1
                     * ((1 << upgradeComponent.getUpgrades(Upgrade.SPEED)) + 2 << AMEEmpowered.getEmpoweredSpeeds(this))
                     * (1 << upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
             inputTankCapacity = MathUtils.clampToInt(5000l * baselineMaxOperations);
