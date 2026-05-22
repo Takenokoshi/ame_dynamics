@@ -26,17 +26,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class AMEDMachines {
 
     public static final VoxelShape SHAPE = Shapes.or(
-            Block.box(0, 0, 0, 16, 2, 16),
-
-            Block.box(0, 2, 0, 2, 16, 2),
-            Block.box(14, 2, 0, 16, 16, 2),
-            Block.box(0, 2, 14, 2, 16, 16),
-            Block.box(14, 2, 14, 16, 16, 16),
-
-            Block.box(2, 10, 0, 14, 16, 2),
-            Block.box(2, 10, 14, 14, 16, 16),
-            Block.box(0, 10, 2, 2, 16, 14),
-            Block.box(14, 10, 2, 16, 16, 14));
+        Block.box(1, 0, 1, 15, 16, 15)
+    );
 
     public static final VoxelShape[] SHAPES = new VoxelShape[] { SHAPE, SHAPE, SHAPE, SHAPE };
     public static final MachineDeferredRegister MACHINES = new MachineDeferredRegister(AMEDConstants.MODID);
